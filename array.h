@@ -6,10 +6,10 @@
 
 #define DEFAULT_NUMBERS \
   {                     \
-    1, 2, 3, 4, 5       \
+    1, 2, 3             \
   }
 
-#define DEFAULT_LENGTH 5
+#define DEFAULT_LENGTH 3
 #define IS_MEMORY_NOT_ALLOCATED(src) if (src == NULL || src->array == NULL)
 #define REPEAT(length) for (int idx = 0; idx < length; idx++)
 

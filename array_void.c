@@ -1,30 +1,25 @@
 #include "array_void.h"
 
-ArrayVoid_ptr create_void_array(int size)
+ArrayVoid_ptr create_void_array(int length)
 {
-  ArrayVoid_ptr src = malloc(sizeof(ArrayVoid_ptr));
-  if (src == NULL)
-  {
-    return NULL;
-  }
-  src->array = size ? malloc(sizeof(Object)) : NULL;
-  src->length = size;
-  return src;
+  ArrayVoid_ptr array = malloc(sizeof(ArrayVoid));
+  array->array = malloc(length * sizeof(Object));
+  array->length = length;
+  return array;
 }
 
 ArrayVoid_ptr map_void(ArrayVoid_ptr src, MapperVoid mapper)
 {
-  ArrayVoid_ptr mapped_src = create_void_array(src->length);
-
-  IS_MEMORY_NOT_ALLOCATED(mapped_src)
+  ArrayVoid_ptr mapped_list = create_void_array(src->length);
+  IS_MEMORY_NOT_ALLOCATED(mapped_list)
   {
-    return mapped_src;
+    return mapped_list;
   }
   REPEAT(src->length)
   {
-    mapped_src->array[idx] = (*mapper)(src->array[idx]);
+    mapped_list->array[idx] = mapper(src->array[idx]);
   }
-  return mapped_src;
+  return mapped_list;
 }
 
 ArrayVoid_ptr filter_void(ArrayVoid_ptr src, PredicateVoid predicate)
@@ -57,4 +52,22 @@ Object reduce_void(ArrayVoid_ptr src, Object accumulator, ReducerVoid reducer)
     accumulator = (*reducer)(src->array[idx], accumulator);
   }
   return accumulator;
+}
+
+void print_int(Object value)
+{
+  printf("%d\n", *(int *)value);
+}
+
+void print_char(Object value)
+{
+  printf("%c\n", *(int *)value);
+}
+
+void print_void_array(ArrayVoid_ptr src, Display displayer)
+{
+  for (int i = 0; i < src->length; i++)
+  {
+    (*displayer)(src->array[i]);
+  }
 }
