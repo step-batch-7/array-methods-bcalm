@@ -18,7 +18,7 @@ Array_ptr map(Array_ptr src, Mapper mapper)
 
   IS_MEMORY_NOT_ALLOCATED(mapped_src)
   {
-    return NULL;
+    return mapped_src;
   }
   REPEAT(src->length)
   {
@@ -34,7 +34,7 @@ Array_ptr filter(Array_ptr src, Predicate predicate)
 
   IS_MEMORY_NOT_ALLOCATED(filtered_src)
   {
-    return NULL;
+    return filtered_src;
   }
 
   REPEAT(src->length)
