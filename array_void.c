@@ -40,7 +40,7 @@ ArrayVoid_ptr filter_void(ArrayVoid_ptr src, PredicateVoid predicate)
       count++;
     }
   }
-  filtered_src->array = realloc(filtered_src->array, count * sizeof(void));
+  filtered_src->array = realloc(filtered_src->array, count * sizeof(Object));
   filtered_src->length = count;
   return filtered_src;
 }
