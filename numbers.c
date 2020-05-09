@@ -32,6 +32,19 @@ Object to_upper_case(Object character)
   return alphabet;
 }
 
+Bool is_even(Object number)
+{
+  int num = *(int *)number;
+  return num % 2 == 0;
+}
+
+Bool is_vowel(Object character)
+{
+  Object capital_letter = to_upper_case(character);
+  char alphabet = *(char *)capital_letter;
+  return alphabet == 'A' || alphabet == 'E' || alphabet == 'I' || alphabet == 'O' || alphabet == 'U';
+}
+
 int main(void)
 {
   int size = DEFAULT_LENGTH;
@@ -41,23 +54,41 @@ int main(void)
   int_list->array[1] = numbers + 1;
   int_list->array[2] = numbers + 2;
   Display displayer = &print_int;
-  printf("Given list :");
+  printf("Given Int list :");
   print_void_array(int_list, displayer);
-  printf("Mapped list :");
+
+  /* -----------------------Map Void part--------------------------------*/
+
+  printf("Mapped list Incremented by one:");
   ArrayVoid_ptr mapped_list = map_void(int_list, &increment);
   print_void_array(mapped_list, displayer);
 
+  /* -----------------------filter Void part--------------------------------*/
+
+  printf("Even numbers:");
+  ArrayVoid_ptr filtered_list = filter_void(int_list, &is_even);
+  print_void_array(filtered_list, displayer);
+
   ArrayVoid_ptr char_list = create_void_array(3);
-  char alphabets[3] = {'a', 'b', 'c'};
+  char alphabets[3] = {'a', 'b', 'A'};
   char_list->array[0] = alphabets;
   char_list->array[1] = alphabets + 1;
   char_list->array[2] = alphabets + 2;
   char_list->length = 3;
   displayer = &print_char;
-  printf("Given list :");
+  printf("Given Char list :");
   print_void_array(char_list, displayer);
+
+  /* -----------------------Map Void part--------------------------------*/
+
   printf("List in capital letters :");
   ArrayVoid_ptr capital_letters = map_void(char_list, &to_upper_case);
   print_void_array(capital_letters, displayer);
+
+  /* -----------------------filter Void part--------------------------------*/
+  printf("Vowels:");
+  ArrayVoid_ptr vowel_list = filter_void(char_list, &is_vowel);
+  print_void_array(vowel_list, displayer);
+
   return 0;
 }
