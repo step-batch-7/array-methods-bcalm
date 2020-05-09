@@ -1,6 +1,7 @@
 #ifndef __ARRAY_VOID_H
 #define __ARRAY_VOID_H
 #include "array.h"
+#include <string.h>
 
 typedef void *Object;
 
