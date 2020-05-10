@@ -17,7 +17,7 @@ ArrayVoid_ptr map_void(ArrayVoid_ptr src, MapperVoid mapper)
   }
   REPEAT(src->length)
   {
-    mapped_list->array[idx] = mapper(src->array[idx]);
+    mapped_list->array[idx] = (*mapper)(src->array[idx]);
   }
   return mapped_list;
 }
@@ -66,8 +66,8 @@ void print_char(Object value)
 
 void print_void_array(ArrayVoid_ptr src, Display displayer)
 {
-  for (int i = 0; i < src->length; i++)
+  REPEAT(src->length)
   {
-    (*displayer)(src->array[i]);
+    (*displayer)(src->array[idx]);
   }
 }
