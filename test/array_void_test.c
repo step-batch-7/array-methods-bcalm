@@ -31,6 +31,14 @@ Bool is_vowel(Object character)
   return alphabet == 'A' || alphabet == 'E' || alphabet == 'I' || alphabet == 'O' || alphabet == 'U';
 }
 
+Object sum(Object num1, Object num2)
+{
+  int add = (*(int *)num1 + *(int *)num2);
+  Object addition = malloc(sizeof(int));
+  memcpy(addition, &add, sizeof(add));
+  return addition;
+}
+
 void run_map_void(ArrayVoid_ptr int_list, ArrayVoid_ptr char_list)
 {
   describe("Map void:");
@@ -69,6 +77,16 @@ void run_filter_void(ArrayVoid_ptr int_list, ArrayVoid_ptr char_list)
   assert_void_deep_equal(filtered_list, expected_list, &assert_is_char_equal);
 }
 
+void run_reduce_void(ArrayVoid_ptr int_list)
+{
+  describe("Reduce void:");
+  it("should add the all numbers present in the list");
+  int expected = 6;
+  int init = 0;
+  Object sum_of_all_digit = reduce_void(int_list, &init, &sum);
+  assert_void_equal(sum_of_all_digit, &expected);
+}
+
 void runtests()
 {
   int size = DEFAULT_LENGTH;
@@ -85,6 +103,7 @@ void runtests()
   char_list->array[2] = alphabets + 2;
   run_map_void(int_list, char_list);
   run_filter_void(int_list, char_list);
+  run_reduce_void(int_list);
 }
 
 int main(void)
