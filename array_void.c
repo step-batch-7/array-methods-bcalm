@@ -2,10 +2,14 @@
 
 ArrayVoid_ptr create_void_array(int length)
 {
-  ArrayVoid_ptr array = malloc(sizeof(ArrayVoid));
-  array->array = malloc(length * sizeof(Object));
-  array->length = length;
-  return array;
+  ArrayVoid_ptr src = malloc(sizeof(ArrayVoid));
+  if (src == NULL)
+  {
+    return src;
+  }
+  src->array = length ? malloc(length * sizeof(Object)) : NULL;
+  src->length = length;
+  return src;
 }
 
 ArrayVoid_ptr map_void(ArrayVoid_ptr src, MapperVoid mapper)
