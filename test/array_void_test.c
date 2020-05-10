@@ -18,7 +18,7 @@ Object to_upper_case(Object character)
   return alphabet;
 }
 
-void run_map_void(ArrayVoid_ptr actual_list)
+void run_map_void(ArrayVoid_ptr int_list, ArrayVoid_ptr char_list)
 {
   describe("Map void:");
   ArrayVoid_ptr expected_list = create_void_array(3);
@@ -27,19 +27,33 @@ void run_map_void(ArrayVoid_ptr actual_list)
   expected_list->array[1] = numbers + 1;
   expected_list->array[2] = numbers + 2;
   it("should increment every number in the list");
-  ArrayVoid_ptr mapped_list = map_void(actual_list, &increment);
+  ArrayVoid_ptr mapped_list = map_void(int_list, &increment);
   assert_void_deep_equal(mapped_list, expected_list, &assert_is_int_equal);
+
+  it("should change all lower case alphabets to upper case");
+  char alphabets[] = {'A', 'B', 'C'};
+  expected_list->array[0] = alphabets;
+  expected_list->array[1] = alphabets + 1;
+  expected_list->array[2] = alphabets + 2;
+  mapped_list = map_void(char_list, &to_upper_case);
+  assert_void_deep_equal(mapped_list, expected_list, &assert_is_char_equal);
 }
 
 void runtests()
 {
   int size = DEFAULT_LENGTH;
-  ArrayVoid_ptr actual_list = create_void_array(size);
+  ArrayVoid_ptr int_list = create_void_array(size);
   int numbers[] = DEFAULT_NUMBERS;
-  actual_list->array[0] = numbers;
-  actual_list->array[1] = numbers + 1;
-  actual_list->array[2] = numbers + 2;
-  run_map_void(actual_list);
+  int_list->array[0] = numbers;
+  int_list->array[1] = numbers + 1;
+  int_list->array[2] = numbers + 2;
+
+  ArrayVoid_ptr char_list = create_void_array(3);
+  char alphabets[] = {'a', 'b', 'c'};
+  char_list->array[0] = alphabets;
+  char_list->array[1] = alphabets + 1;
+  char_list->array[2] = alphabets + 2;
+  run_map_void(int_list, char_list);
 }
 
 int main(void)
