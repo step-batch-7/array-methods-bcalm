@@ -18,6 +18,19 @@ Object to_upper_case(Object character)
   return alphabet;
 }
 
+Bool is_even(Object number)
+{
+  int num = *(int *)number;
+  return num % 2 == 0;
+}
+
+Bool is_vowel(Object character)
+{
+  Object capital_letter = to_upper_case(character);
+  char alphabet = *(char *)capital_letter;
+  return alphabet == 'A' || alphabet == 'E' || alphabet == 'I' || alphabet == 'O' || alphabet == 'U';
+}
+
 void run_map_void(ArrayVoid_ptr int_list, ArrayVoid_ptr char_list)
 {
   describe("Map void:");
@@ -39,6 +52,17 @@ void run_map_void(ArrayVoid_ptr int_list, ArrayVoid_ptr char_list)
   assert_void_deep_equal(mapped_list, expected_list, &assert_is_char_equal);
 }
 
+void run_filter_void(ArrayVoid_ptr int_list, ArrayVoid_ptr char_list)
+{
+  describe("Filter void:");
+  ArrayVoid_ptr expected_list = create_void_array(1);
+  int numbers[] = {2};
+  expected_list->array[0] = numbers;
+  it("should filter the even number in the list");
+  ArrayVoid_ptr mapped_list = filter_void(int_list, &is_even);
+  assert_void_deep_equal(mapped_list, expected_list, &assert_is_int_equal);
+}
+
 void runtests()
 {
   int size = DEFAULT_LENGTH;
@@ -54,6 +78,7 @@ void runtests()
   char_list->array[1] = alphabets + 1;
   char_list->array[2] = alphabets + 2;
   run_map_void(int_list, char_list);
+  run_filter_void(int_list, char_list);
 }
 
 int main(void)
