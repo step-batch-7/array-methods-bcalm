@@ -59,8 +59,14 @@ void run_filter_void(ArrayVoid_ptr int_list, ArrayVoid_ptr char_list)
   int numbers[] = {2};
   expected_list->array[0] = numbers;
   it("should filter the even number in the list");
-  ArrayVoid_ptr mapped_list = filter_void(int_list, &is_even);
-  assert_void_deep_equal(mapped_list, expected_list, &assert_is_int_equal);
+  ArrayVoid_ptr filtered_list = filter_void(int_list, &is_even);
+  assert_void_deep_equal(filtered_list, expected_list, &assert_is_int_equal);
+
+  it("should filter all vowels present in the list");
+  char alphabets[] = {'a'};
+  expected_list->array[0] = alphabets;
+  filtered_list = filter_void(char_list, &is_vowel);
+  assert_void_deep_equal(filtered_list, expected_list, &assert_is_char_equal);
 }
 
 void runtests()
